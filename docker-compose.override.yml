@@ -1,0 +1,32 @@
+services:
+  web:
+    ports:
+      - "8000:8000"
+    environment:
+      - DEBUG=true
+      - POSTGRES_SERVER=db
+      - REDIS_CACHE_HOST=redis
+      - REDIS_QUEUE_HOST=redis
+      - REDIS_RATE_LIMIT_HOST=redis
+    volumes:
+      - ./src/app:/code/app
+      - ./custom-logs:/code/logs
+
+  worker:
+    environment:
+      - POSTGRES_SERVER=db
+      - REDIS_CACHE_HOST=redis
+      - REDIS_QUEUE_HOST=redis
+      - REDIS_RATE_LIMIT_HOST=redis
+
+  db:
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=${POSTGRES_USER:-postgres}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD:-postgres}
+      - POSTGRES_DB=${POSTGRES_DB:-app}
+
+  redis:
+    ports:
+      - "6379:6379"

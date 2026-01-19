@@ -1,6 +1,9 @@
+from __future__ import annotations
+
 import uuid as uuid_pkg
 from datetime import UTC, datetime
 from enum import Enum
+from typing import TYPE_CHECKING
 
 from sqlalchemy import Boolean, DateTime, String
 from sqlalchemy.dialects.postgresql import UUID
@@ -8,6 +11,9 @@ from sqlalchemy.orm import Mapped, mapped_column, relationship
 from uuid6 import uuid7
 
 from ..core.db.database import Base
+
+if TYPE_CHECKING:
+    from .fund import Fund
 
 class InsuranceStatusEnum(str, Enum):
     CONNECTED = "CONNECTED"

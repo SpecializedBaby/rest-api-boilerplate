@@ -14,6 +14,7 @@ from ..crud.crud_tier import crud_tiers
 from ..crud.crud_users import crud_users
 from ..schemas.rate_limit import RateLimitRead, sanitize_path
 from ..schemas.tier import TierRead
+from ..services import FundService
 
 logger = logging.getLogger(__name__)
 
@@ -104,3 +105,6 @@ async def rate_limiter_dependency(
     is_limited = await rate_limiter.is_rate_limited(db=db, user_id=user_id, path=path, limit=limit, period=period)
     if is_limited:
         raise RateLimitException("Rate limit exceeded.")
+
+async def get_fund_service(db: Annotated[AsyncSession, Depends(async_get_db)]) -> FundService:
+    return FundService(db=db)

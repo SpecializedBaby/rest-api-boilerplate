@@ -31,9 +31,6 @@ class Fund(Base):
     insurance_id: Mapped[int | None] = mapped_column(
         ForeignKey("insurance.id", ondelete="CASCADE"), index=True, default=None
     )
-    carrier_id: Mapped[int | None] = mapped_column(
-        ForeignKey("carrier.id", ondelete="CASCADE"), index=True, default=None
-    )
 
     uuid: Mapped[uuid_pkg.UUID] = mapped_column(UUID(as_uuid=True), default_factory=uuid7, unique=True)
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default_factory=lambda: datetime.now(UTC))

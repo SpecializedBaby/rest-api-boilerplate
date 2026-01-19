@@ -28,3 +28,10 @@ class FundRead(BaseModel):
 class FundTransactionResponse(BaseModel):
     currency: str
     amount: Annotated[Decimal, Field(examples=[100.0000])]
+
+class FundCreateInternal(BaseModel):
+    currency: str
+    amount: Decimal
+    owner_type: FundOwnerType
+    user_id: int | None = None
+    insurance_id: int | None = None
